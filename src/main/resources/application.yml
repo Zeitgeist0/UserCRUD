@@ -1,0 +1,35 @@
+server:
+  port: 9000
+spring:
+  h2:
+    console:
+      enabled: true
+      settings:
+        trace: false
+---
+spring:
+  profiles:
+    active: dev
+---
+spring:
+  sql:
+    init:
+      mode: always
+
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        generate_statistics: false
+      show-sql: false
+  config:
+    activate:
+      on-profile: dev
+

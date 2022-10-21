@@ -8,8 +8,12 @@ import com.usercrud.service.UserRequestMapper;
 import com.usercrud.service.UserResponseMapper;
 import com.usercrud.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,8 +39,9 @@ public class UserController {
     }
 
     @PostMapping()
-    public void save(@RequestBody UserRequestDto user) {
-        userService.save(userRequestMapper.convertToEntity(user));
+    public void save(@Valid @RequestBody UserRequestDto user) {
+        User userRequest = userRequestMapper.convertToEntity(user);
+        userService.save(userRequest);
     }
 
 
@@ -46,8 +51,14 @@ public class UserController {
         userService.deleteById(userId);
     }
     @DeleteMapping()
-    public void delete(@RequestBody UserRequestDto user) {
+    public void delete( @RequestBody UserRequestDto user) {
         userService.delete(userRequestMapper.convertToEntity(user));
     }
+
+    @ExceptionHandler({ MethodArgumentNotValidException.class})
+    public ResponseEntity<Object> handleException(MethodArgumentNotValidException ex) {
+        return new ResponseEntity<>(ex.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
+    }
+
 
 }

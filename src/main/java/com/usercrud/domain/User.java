@@ -1,6 +1,6 @@
 package com.usercrud.domain;
 
-import com.sun.istack.NotNull;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +13,6 @@ import javax.persistence.*;
 public class User {
 
     @Id
-
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 

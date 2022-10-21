@@ -22,10 +22,9 @@ public class UserRequestDto {
     @Size(min = 3, message = "Name must have 3 letters")
     private String name;
     @Pattern(regexp = "^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$")
-    @NotBlank(message = "Email cannot be empty")
     private String email;
     @NotBlank
-    @Size(min = 3, message = "Password must have 3 symbols")
+    @Pattern(regexp =  "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")
     private String password;
 
     @Override

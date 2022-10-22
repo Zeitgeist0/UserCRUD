@@ -51,7 +51,7 @@ public class UserController {
         userService.deleteById(userId);
     }
     @DeleteMapping()
-    public void delete( @RequestBody UserRequestDto user) {
+    public void delete(@Valid @RequestBody UserRequestDto user) {
         userService.delete(userRequestMapper.convertToEntity(user));
     }
 
